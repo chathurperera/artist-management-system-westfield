@@ -51,3 +51,41 @@ def input_artist_data():
         coaching_hours = 0
 
     return Artist(name, art_class, skill_level, exhibitions, coaching_hours)
+
+def display_artist_summary(artist):
+    class_fee, coaching_fee, exhibition_fee, total = artist.calculate_total_cost()
+
+    print("\n--- Monthly Summary ---")
+    print(f"Artist Name           : {artist.name}")
+    print(f"Class Level Enrolled  : {artist.art_class}")
+    print(f"Skill Level           : {artist.skill_level}")
+    print(f"Class Fee             : LKR {class_fee:.2f}")
+    print(f"Coaching Fee          : LKR {coaching_fee:.2f}")
+    print(f"Exhibition Fee        : LKR {exhibition_fee:.2f}")
+    print(f"Total Monthly Cost    : LKR {total:.2f}")
+
+    if artist.skill_level != artist.art_class:
+        print(f"Note: Skill level ({artist.skill_level}) does not match enrolled class level ({artist.art_class}).")
+
+# Main Program Loop (event-driven entry point)
+def main():
+    print("🎨 Welcome to Westfield Art Studio Management System 🎨\n")
+    artists_list = []
+
+    while True:
+        artist = input_artist_data()
+        artists_list.append(artist)
+
+        cont = input("\nWould you like to register another artist? (yes/no): ").lower()
+        if cont != 'yes':
+            break
+
+    print("\n📋 Generating Monthly Reports...\n")
+    for artist in artists_list:
+        display_artist_summary(artist)
+
+    print("\n✅ All artist data processed successfully.")
+
+# Run the program
+if __name__ == "__main__":
+    main()
